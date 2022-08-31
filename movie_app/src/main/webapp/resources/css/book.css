@@ -1,0 +1,263 @@
+@charset "UTF-8";
+
+#theater_btns > div {
+  height: 60px;
+  cursor: pointer;
+  border-bottom: 2px solid black;
+}
+
+#region_zone {
+  height: 588px;
+}
+
+.region-list-item, .theater-list-item {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+}
+
+.region-list-item .text-secondary {
+  font-size: 14px;
+}
+
+.region-selected {
+  background-color: white;
+}
+
+.region-check-icon {
+  top: -10%;
+  right: 6%;
+  color: rgb(253, 30, 57);
+  display: none;
+}
+
+.region-selected .region-check-icon {
+  display: block;
+}
+
+.theater-selected {
+    color: rgb(253, 30, 57);
+}
+
+.theater-check-icon {
+  top: -10%;
+  right: 6%;
+  display: none;
+}
+
+.theater-selected .theater-check-icon {
+  display: block;
+}
+
+.ic_grade {
+  margin-top: 2px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  display: inline-block;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  color: white;
+}
+
+.gr_all {
+  background-color: rgba(98, 204, 122);
+  font-size: 16px;
+}
+
+.gr_12 {
+  background-color: #4DD6FF;
+}
+
+.gr_15 {
+  background-color: rgba(248, 196, 48);
+}
+
+.gr_18 {
+  background-color: rgba(230, 60, 111);
+  font-size: 16px;
+}
+
+#theater_zone {
+  width: 340px;
+  height: 700px;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: #ddd;
+}
+
+#movie_zone {
+  width: 340px;
+  height: 700px;
+  border-width: 1px 0px 1px 0px;
+  border-style: solid;
+  border-color: #ddd;
+}
+
+#date_zone {
+  width: 500px;
+  height: 700px;
+  border-width: 1px 1px 1px 1px;
+  border-style: solid;
+  border-color: #ddd;
+}
+
+#movie_sort_zone {
+  height: 60px;
+  border-bottom: 1px solid #ddd;
+}
+
+#movie_sort {
+  width: 180px;
+  height: 30px;
+}
+
+#movie_list_zone {
+  widows: 340px;
+  height: 590px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+
+.movie-list-item {
+  position: relative;
+  padding-top: 8px;
+  padding-left: 24px;
+  width: 340px;
+  height: 50px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  cursor: pointer;
+}
+
+.movie-check-icon {
+  top: 5%;
+  right: 5%;
+  color: rgb(253, 30, 57);
+  display: none;
+}
+
+.movie-selected {
+  padding-top: 5px;
+  padding-left: 21px;
+  border: 3px solid black;
+  background-color: white;
+}
+
+.movie-selected > .movie-check-icon {
+  display: block;
+}
+
+#calendar {
+  height: 90px;
+}
+.calendar-item {
+  cursor: pointer;
+}
+.calendar-item > p:first-child {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.date-selected {
+    background-color: black;
+    color: white;
+}
+.zone-header {
+  height: 50px;
+  background-color: black;
+}
+#date_btns > div{
+  cursor: pointer;
+  height: 50px;
+  border-bottom: 2px solid black;
+}
+.opacity-33 {
+  opacity: 33%;
+}
+#ticket_zone {
+  height: 506px;
+}
+.schedule-item {
+  width: 104px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  background: #f8f8f8;
+}
+.schedule-item-seat {
+  font-size: 10.5px;
+}
+.schedule-item-room {
+  font-size: 12px;
+}
+.schedule-tooltip {
+  border-radius: 10px;
+  width: 80px;
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+  background-color: rgba(30, 30, 30, 0.8);
+  color: white;
+  top: -35px;
+  cursor: default;
+  pointer-events: none;
+}
+
+#loading_modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transition: 0.3s;
+}
+
+#loading_modal > .spinner-border {
+  width: 100px;
+  height: 100px;
+}
+
+@media (max-width: 1400px) {
+  #theater_zone {
+    width: 340px;
+    height: 500px;
+  }
+  
+  #movie_zone {
+    width: 340px;
+    height: 500px;
+    border-width: 1px 1px 1px 0px;
+  }
+  
+  #region_zone, #movie_list_zone {
+    height: 388px;
+  }
+
+  #date_zone {
+    width: 680px;
+    height: 700px;
+      border-width: 0 1px 1px 1px;
+  }
+}
+
+@media (max-width: 767px) {
+  
+  #movie_zone {
+    border-width: 0 1px 0 1px;
+  }
+  
+  #date_zone {
+    width: 340px;
+    height: 700px;
+    border-width: 1px 1px 1px 1px;
+  }
+}

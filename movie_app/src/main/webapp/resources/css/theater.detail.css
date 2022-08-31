@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+
+.ic_grade {
+  margin-top: 2px;
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  display: inline-block;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: bold;
+  color: white;
+}
+
+.gr_all {
+  background-color: rgba(98, 204, 122);
+  font-size: 16px;
+}
+
+.gr_12 {
+  background-color: #4DD6FF;
+}
+
+.gr_15 {
+  background-color: rgba(248, 196, 48);
+}
+
+.gr_18 {
+  background-color: rgba(230, 60, 111);
+  font-size: 16px;
+}
+
+#calendar {
+  height: 90px;
+}
+.calendar-item {
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+.calendar-item > p:first-child {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 22px;
+  font-weight: bold;
+}
+.date-selected {
+    background-color: black;
+    color: white;
+}
+
+.opacity-33 {
+  opacity: 33%;
+}
+
+.schedule-item {
+  width: 104px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  background: #f8f8f8;
+}
+.schedule-item-seat {
+  font-size: 10.5px;
+}
+.schedule-item-room {
+  font-size: 12px;
+}
+.schedule-tooltip {
+  border-radius: 10px;
+  width: 80px;
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: center;
+  background-color: rgba(30, 30, 30, 0.8);
+  color: white;
+  top: -35px;
+  cursor: default;
+  pointer-events: none;
+}

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+.modal-content {
+    width: 1280px;
+    height: auto;
+  }
+  
+  .modal {
+    text-align: center;
+  }
+  
+    .modal:before {
+            display: inline-block;
+            vertical-align: middle;
+            content: " ";
+            height: 100%;
+    }
+  
+  .modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  #modalCloseBtn {
+    color: white;
+    transform: translateX(100%);
+  }

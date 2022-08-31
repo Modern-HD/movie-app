@@ -1,0 +1,41 @@
+@charset "UTF-8";
+.member_icons{
+    display: inline-block;
+}
+.member_icons_img {
+    height: 36px;
+}
+.member_icons {
+    font-size: 0.8em;
+}
+.header_contents a{
+    text-decoration: none;
+    color: black;
+}
+.header_content {
+    box-sizing: border-box;
+}
+.navbar:hover > ul.dropdown-menu{
+    display: block;
+}
+.dropdown-menu {
+    display: none;
+}
+.nav-item {
+    display: inline-block;
+}
+.member_icon_zone li{
+    margin: 0px 10px;
+    text-align: center;
+}
+.nav-item-zone a{
+    
+    margin: 0px 20px;
+}
+.footer-zone {
+    font-size: 0.8em;
+}
+nav {
+    border-top: 1px solid #ddd;
+    border-bottom: 3px solid red;
+}
