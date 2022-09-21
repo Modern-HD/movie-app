@@ -14,5 +14,7 @@ public interface ScheduleDAO {
 	public ScheduleVO selectOneFromScno(long scno);
 	public List<ScheduleVO> selectOldSchedule();
 	public int insert(ScheduleVO scvo);
+	public int updateSeat(ScheduleVO scvo);
+	public int updateSeatMinus(long scno);
 	public int deleteFromScno(long scno);
 }

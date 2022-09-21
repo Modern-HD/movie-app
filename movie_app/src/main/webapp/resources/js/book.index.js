@@ -447,16 +447,16 @@ async function refresh_ticket_list() {
             rdto_str += `<div class="room-item">`;
             rdto_str += `<div class="mx-1 mt-3 mb-2">${rdto.rvo.special}</div>`;
             rdto_str += `<div class="schedule-zone d-flex flex-wrap">`;
-            rdto.scdtoList.forEach(scdto => {
-                let scdto_str = ""
-                scdto_str += `<a href="/book/seating/${scdto.scvo.scno}" class="schedule-item position-relative p-1 m-1 d-block text-black text-decoration-none" data-scno="${scdto.scvo.scno}">`;
-                scdto_str += `<div class="fw-bold fs-6 text-center">${scdto.scvo.startTime.substring(11, 16)}</div>`;
-                scdto_str += `<div class="col-10 mx-auto"><div class="float-start schedule-item-seat">`;
-                scdto_str += `<span class="text-success fw-bold">${scdto.totalEmptyCount} </span><span class="text-muted">/ ${scdto.totalSeatCount}</span></div>`;
-                scdto_str += `<div class="float-end schedule-item-room"><span>${rdto.rvo.rname}</span></div></div>`;
-                scdto_str += `<div class="schedule-tooltip position-absolute start-50 translate-middle-x d-none">종료 ${scdto.scvo.endTime.substring(11, 16)}</div>`;
-                scdto_str += `</a>`;
-                rdto_str += scdto_str;
+            rdto.scvoList.forEach(scvo => {
+                let scvo_str = ""
+                scvo_str += `<a href="/book/seating/${scvo.scno}" class="schedule-item position-relative p-1 m-1 d-block text-black text-decoration-none" data-scno="${scvo.scno}">`;
+                scvo_str += `<div class="fw-bold fs-6 text-center">${scvo.startTime.substring(11, 16)}</div>`;
+                scvo_str += `<div class="col-10 mx-auto"><div class="float-start schedule-item-seat">`;
+                scvo_str += `<span class="text-success fw-bold">${scvo.emptySeat} </span><span class="text-muted">/ ${scvo.totalSeat}</span></div>`;
+                scvo_str += `<div class="float-end schedule-item-room"><span>${rdto.rvo.rname}</span></div></div>`;
+                scvo_str += `<div class="schedule-tooltip position-absolute start-50 translate-middle-x d-none">종료 ${scvo.endTime.substring(11, 16)}</div>`;
+                scvo_str += `</a>`;
+                rdto_str += scvo_str;
             })
             rdto_str += `</div>`;
             rdto_str += `</div>`;

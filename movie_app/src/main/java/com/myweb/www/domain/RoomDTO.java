@@ -13,5 +13,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RoomDTO {
 	private RoomVO rvo;
-	private List<ScheduleDTO> scdtoList; 
+	private List<ScheduleVO> scvoList; 
 }

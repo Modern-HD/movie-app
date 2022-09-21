@@ -84,17 +84,14 @@ public class BookServiceImpl implements BookService {
 				List<RoomDTO> rdtoList = new ArrayList<>();
 				List<RoomVO> rvoList = rdao.selectTicketList(tno);
 				for (RoomVO rvo : rvoList) {
-					List<ScheduleDTO> scdtoList = new ArrayList<>();
+					List<ScheduleVO> scvoList = new ArrayList<>();
 					SearchDTO scSchDto = new SearchDTO();
 					scSchDto.setRno(rvo.getRno());
 					scSchDto.setMovieId(movo.getMovieId());
 					scSchDto.setDate(date);
-					List<ScheduleVO> scvoList = scdao.selectList(scSchDto);
-					for (ScheduleVO scvo : scvoList) {
-						scdtoList.add(new ScheduleDTO(scvo, sdao.selectSeatCount(scvo.getScno()), sdao.selectEmptyCount(scvo.getScno())));
-					}
-					if (scdtoList.size() > 0) {
-					rdtoList.add(new RoomDTO(rvo, scdtoList));
+					scvoList = scdao.selectList(scSchDto);
+					if (scvoList.size() > 0) {
+					rdtoList.add(new RoomDTO(rvo, scvoList));
 					}
 				}
 				if (rdtoList.size() > 0) {
@@ -150,6 +147,9 @@ public class BookServiceImpl implements BookService {
 			isUp *= sdao.updateStatusToTrue(new SeatVO(sid, pydto.getScno()));
 			if (isUp > 0) {
 				isUp *= bsdao.insertBSeat(new BSeatVO(sid, bno));
+				if (isUp > 0) {
+					isUp *= scdao.updateSeatMinus(pydto.getScno());
+				}
 			}
 		}
 		if (isUp > 0) {

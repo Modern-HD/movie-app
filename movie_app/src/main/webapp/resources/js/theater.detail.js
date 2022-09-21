@@ -409,13 +409,13 @@ async function refresh_ticket_list() {
             str += `<div class="room-item">`;
             str += `<div class="mx-1 mt-3 mb-2">${rdto.rvo.special}</div>`;
             str += `<div class="schedule-zone d-flex flex-wrap">`;
-            rdto.scdtoList.forEach(scdto => {
-                str += `<a href="/book/seating/${scdto.scvo.scno}" class="schedule-item position-relative p-1 m-1 d-block text-black text-decoration-none" data-scno="${scdto.scvo.scno}">`;
-                str += `<div class="fw-bold fs-6 text-center">${scdto.scvo.startTime.substring(11, 16)}</div>`;
+            rdto.scvoList.forEach(scvo => {
+                str += `<a href="/book/seating/${scvo.scno}" class="schedule-item position-relative p-1 m-1 d-block text-black text-decoration-none" data-scno="${scvo.scno}">`;
+                str += `<div class="fw-bold fs-6 text-center">${scvo.startTime.substring(11, 16)}</div>`;
                 str += `<div class="col-10 mx-auto"><div class="float-start schedule-item-seat">`;
-                str += `<span class="text-success fw-bold">${scdto.totalEmptyCount} </span><span class="text-muted">/ ${scdto.totalSeatCount}</span></div>`;
+                str += `<span class="text-success fw-bold">${scvo.emptySeat} </span><span class="text-muted">/ ${scvo.totalSeat}</span></div>`;
                 str += `<div class="float-end schedule-item-room"><span>${rdto.rvo.rname}</span></div></div>`;
-                str += `<div class="schedule-tooltip position-absolute start-50 translate-middle-x d-none">종료 ${scdto.scvo.endTime.substring(11, 16)}</div>`;
+                str += `<div class="schedule-tooltip position-absolute start-50 translate-middle-x d-none">종료 ${scvo.endTime.substring(11, 16)}</div>`;
                 str += `</a>`;
             })
             str += `</div>`;

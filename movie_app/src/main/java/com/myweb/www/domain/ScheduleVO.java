@@ -19,4 +19,6 @@ public class ScheduleVO {
 	private String endTime;
 	private long movieId;
 	private boolean timeDiscount;
+	private int totalSeat;
+	private int emptySeat;
 }

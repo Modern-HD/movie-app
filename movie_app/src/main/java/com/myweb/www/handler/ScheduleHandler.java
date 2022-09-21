@@ -26,23 +26,23 @@ import lombok.extern.slf4j.Slf4j;
 public class ScheduleHandler {
 	
 	@Inject
-	RoomDAO rdao;
+	private RoomDAO rdao;
 	
 	@Inject
 	private SeatDAO sdao;
 	
 	@Inject
-	ScheduleDAO scdao;
+	private ScheduleDAO scdao;
 	
-	@Scheduled(cron = "00 30 15 * * *")
+	@Scheduled(cron = "00 15 00 * * *")
 	public void scheduleGenerate() {
-		
-		LocalDateTime today = LocalDateTime.now().with(LocalTime.NOON).minusHours(4).plusDays(7);
+		log.info("SchduleHandler >>> scheduleGenerate");
+		LocalDateTime today = LocalDateTime.now().with(LocalTime.NOON).minusHours(4).plusDays(6);
 		List<RoomVO> rvoList = rdao.selectListAll();
 		for (RoomVO rvo : rvoList) {
-			if (random(0, 2) > 0) {
+			if (random(0, 1) > 0) {
 				int plusHour = 0;
-				int len = random(4,7);
+				int len = random(3,7);
 				for (int j = 0; j < len; j++) {
 					if (random(0,1) > 0) {
 						ScheduleVO scvo = new ScheduleVO();
@@ -56,11 +56,16 @@ public class ScheduleHandler {
 					plusHour += 2;
 				}
 			}
-		}
-		
+		}		
+	}
+	
+	@Scheduled(cron = "00 30 00 * * *")
+	public void autoSeatRegister() {
+		log.info("SchduleHandler >>> autoSeatRegister");
 		List<ScheduleVO> scvoList = scdao.selectListAll();
 		for (ScheduleVO scvo : scvoList) {
 			if (sdao.selectSeatCount(scvo.getScno()) < 1) {
+				int cnt = 0;
 				RoomVO rvo = rdao.selectOneFromRno(scvo.getRno());
 				int width = rvo.getWidth();
 				int height = rvo.getHeight();
@@ -74,15 +79,21 @@ public class ScheduleHandler {
 						schdto.setY(String.valueOf((char)y));
 						schdto.setValid(x % 2 == 1 ? false : true);
 						sdao.insertSeat(schdto);
+						cnt++;
 					}
 				}
+				ScheduleVO newScvo = new ScheduleVO();
+				newScvo.setScno(scvo.getScno());
+				newScvo.setTotalSeat(cnt);
+				newScvo.setEmptySeat(cnt);
+				scdao.updateSeat(newScvo);
 			}
 		}
-		
 	}
 	
-	@Scheduled(cron = "00 00 16 * * *")
+	@Scheduled(cron = "00 05 00 * * *")
 	public void scheduleRemover() {
+		log.info("SchduleHandler >>> ScheduleRemover");
 		List<ScheduleVO> scvoList = scdao.selectOldSchedule();
 		for (ScheduleVO scvo : scvoList) {
 			scdao.deleteFromScno(scvo.getScno());
