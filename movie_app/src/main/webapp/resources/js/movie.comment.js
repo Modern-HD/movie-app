@@ -20,7 +20,7 @@ document.getElementById('cmtSbmBtn').addEventListener('click', (e) => {
   const cmtInputObj = document.getElementById('cmtText');
   if(document.getElementById('cmtWriter').innerText == ''){
     if(confirm('로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?')) {
-      location.href = 'http://localhost:8090/member/login';
+      location.href = '/member/login';
   }
    }else if(cmtInputObj.value == null || cmtInputObj.value == ''){
     alert('관람평을 작성해 주세요.');

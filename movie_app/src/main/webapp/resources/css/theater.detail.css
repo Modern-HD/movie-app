@@ -16,6 +16,7 @@
 }
 
 .gr_all {
+  white-space: nowrap;
   background-color: rgba(98, 204, 122);
   font-size: 16px;
 }
@@ -29,6 +30,7 @@
 }
 
 .gr_18 {
+  white-space: nowrap;
   background-color: rgba(230, 60, 111);
   font-size: 16px;
 }

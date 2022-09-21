@@ -236,6 +236,7 @@
     </div>
     <!-- Trailer Modal End-->
 </div>
+</div>
 <script src="/resources/js/movie.detail.js"></script>
 <script src="/resources/js/movie.comment.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>

@@ -64,6 +64,7 @@
 }
 
 .gr_all {
+  white-space: nowrap;
   background-color: rgba(98, 204, 122);
   font-size: 16px;
 }
@@ -77,6 +78,7 @@
 }
 
 .gr_18 {
+  white-space: nowrap;
   background-color: rgba(230, 60, 111);
   font-size: 16px;
 }
@@ -120,8 +122,12 @@
   height: 590px;
   overflow-x: hidden;
   overflow-y: scroll;
+  -ms-overflow-style: none;
 }
 
+#movie_list_zone::-webkit-scrollbar {
+    display: none;
+}
 
 .movie-list-item {
   position: relative;
@@ -182,9 +188,15 @@
 .opacity-33 {
   opacity: 33%;
 }
+
 #ticket_zone {
   height: 506px;
 }
+
+#ticket_zone::-webkit-scrollbar {
+    display: none;
+}
+
 .schedule-item {
   width: 104px;
   border-radius: 4px;
