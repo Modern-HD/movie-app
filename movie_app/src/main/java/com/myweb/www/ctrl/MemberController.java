@@ -44,7 +44,7 @@ public class MemberController {
 	public void register() {}
 	
 	@PostMapping("/register")
-	public String register(MemberVO mvo, RedirectAttributes rttr) {
+	public String register(MemberVO mvo) {
 		msv.register(mvo);
 		return "redirect:/member/login";
 	}
@@ -67,7 +67,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/logout")
-	public String logout(HttpSession ses, RedirectAttributes rttr) {
+	public String logout(HttpSession ses) {
 		ses.removeAttribute("ses");
 		ses.invalidate();
 		return "redirect:/";
@@ -102,13 +102,14 @@ public class MemberController {
 	
 	@PostMapping(value = "/addFavorTh", consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> addTh (@RequestBody FavorThVO fvo, RedirectAttributes rttr){
-		if (msv.addTh(fvo) == 0) {
+	public ResponseEntity<String> addTh (@RequestBody FavorThVO fvo){
+		if (msv.addTh(fvo) > 0) {
 			return new ResponseEntity<String>("1", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("0", HttpStatus.OK);
 		}
 	}
+	
 	@PostMapping(value = "/removeFavorTh", consumes = "application/json",
 			produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> removeTh (@RequestBody FavorThVO fvo){
@@ -116,16 +117,16 @@ public class MemberController {
 				new ResponseEntity<String>("1", HttpStatus.OK)
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	@GetMapping(value = "/spread/{mnoVal}", consumes = "application/json", 
-			produces = {MediaType.APPLICATION_JSON_VALUE})
+	
+	@GetMapping(value = "/spread/{mnoVal}", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<List<FavorThVO>> spread(Model model, @PathVariable("mnoVal") long mno){
-		List<FavorThVO> list = new ArrayList<FavorThVO>();
-		list = msv.getListTh(mno);
+		List<FavorThVO> list = msv.getListTh(mno);
 		log.info(">>> List : {}", list);
 		return list != null ? 
-				new ResponseEntity<List<FavorThVO>>(HttpStatus.OK)
+				new ResponseEntity<List<FavorThVO>>(list ,HttpStatus.OK)
 				: new ResponseEntity<List<FavorThVO>>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+	
 	@GetMapping("/favorThSet")
 	public void setFavorTh (Model model, @RequestParam("mno") long mno) {
 		model.addAttribute("mvo", msv.getDetail(mno));

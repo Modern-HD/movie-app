@@ -1,5 +1,140 @@
 @charset "UTF-8";
 
+#favor_th_board_container {
+    height: 450px;
+}
+
+#favor_th_board {
+    border: 3px solid rgb(103, 103, 103);
+}
+
+#favor_th_conf_btn {
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background-color: rgb(103, 103, 103);
+    cursor: pointer;
+}
+
+#region_list_zone {
+    border-top: 4px solid rgb(103, 103, 103);
+    border-bottom: 4px solid rgb(103, 103, 103);
+    color: rgb(200, 200, 200);
+    text-align: center;
+    font-size: 1.1em;
+    padding: 5px 0 5px 0;
+}
+
+#theater_img_zone {
+    background-image: url(/resources/images/theater-img.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+#theater_info_zone {
+    transform: translateY(-100%);
+}
+
+#region_select, #theater_select {
+    width: 95px;
+    margin-right: 5px;
+}
+
+#favor_th_conf_list {
+    border-bottom: 1px dashed grey;
+}
+
+#favor_th_conf_modal_container {
+    border: 5px solid rgb(55, 55, 55);
+}
+
+
+.font-do-hyeon {
+    font-family: 'Do Hyeon', sans-serif;
+}
+
+.bg-darkness {
+    background-color: rgb(55, 55, 55);
+}
+
+.rounded-circle-in {
+    border-radius: 50%;
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    border: 3px solid rgb(103, 103, 103);
+}
+
+.favor-th-list-item {
+    width: 120px;
+    height: 50px;
+    border: 2px solid rgb(103, 103, 103);
+    outline: 2px solid rgb(103, 103, 103);
+    outline-offset: -9px;
+    color: white;
+    text-align: center;
+    line-height: 48px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.region-list-item {
+    cursor: pointer;
+}
+
+.region-list-item:hover {
+    color: white;
+}
+
+.theater-list-item {
+    color:rgb(153, 153, 153);
+    text-decoration: none;
+}
+
+.theater-list-item:hover {
+    color: white;
+}
+
+.theater-list-item + .theater-list-item {
+    border-left: 1px solid rgb(153, 153, 153);;
+}
+
+.item-selected {
+    color: white;
+}
+
+.item-selected::before {
+    content: "‣ ";
+}
+
+.favor-th-conf-list-item {
+    width: 140px;
+    height: 45px;
+    border: 3px solid black;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.favor-th-conf-list-item > div:first-child {
+    line-height: 39px;
+}
+
+.fovor-th-del-btn {
+    top: 0%;
+    left: 100%;
+    height: 39px;
+    width: 20px;
+    line-height: 39px;
+    transform: translateX(-100%);
+    text-align: center;
+    background-color: lightgrey;
+    cursor: pointer;
+}
 
 .ic_grade {
   margin-top: 2px;
@@ -10,7 +145,7 @@
   display: inline-block;
   line-height: 30px;
   text-align: center;
-  border-radius: 50%;
+  border-radius: 10%;
   font-weight: bold;
   color: white;
 }
@@ -38,6 +173,11 @@
 #calendar {
   height: 90px;
 }
+
+#ticket_zone {
+  min-height: 400px;
+}
+
 .calendar-item {
   cursor: pointer;
   border: 1px solid #ccc;
@@ -60,10 +200,9 @@
 
 .schedule-item {
   width: 104px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  border: 1px solid #999;
+  background-color: #fafafa;
   cursor: pointer;
-  background: #f8f8f8;
 }
 .schedule-item-seat {
   font-size: 10.5px;
@@ -83,4 +222,9 @@
   top: -35px;
   cursor: default;
   pointer-events: none;
+}
+
+.ticket-item {
+    border-top: 1px solid #666;
+    padding-top: 20px
 }

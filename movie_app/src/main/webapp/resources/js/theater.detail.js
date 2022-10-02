@@ -1,3 +1,16 @@
+const theater_obj = {}
+
+// my 영화관 목록 가져오기
+async function getMyTheaterLisFromServer(mno) {
+    try {
+        const resp = await fetch('/member/spread/' + mno); 
+        const result = await resp.json();
+        return result;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 async function addFavorToServer(favorData) {
     try {
         const url = '/member/addFavorTh';
@@ -43,256 +56,103 @@ async function getTheaterListFromServer(regionNum) {
     }
 }
 
-function spreadTheaterList(list) {
-    let area = document.getElementById('printZone');
-    const mnoVal = document.getElementById('mnoVal').value;
-    area.innerHTML = '';
-    let tag = '<ul>';
-    console.log(list);
-    console.log(typeof list);
-    for (const key in list) {
-        console.log(list[key]);
-        for (const tvo of list[key]) {
-            console.log(tvo);
-            tag += '<li>';
-            if (mnoVal == null || mnoVal == '') {
-                tag += `<a title="CGV${tvo.tname}"
-            href="/theater/detail?tno=${tvo.tno}&mno=0">CGV${tvo.tname}</a>`;
-            } else {
-                tag += `<a title="CGV${tvo.tname}"
-            href="/theater/detail?tno=${tvo.tno}&mno=${mnoVal}">CGV${tvo.tname}</a>`;
-            }
-            tag += '</li>';
-        }
-    }
-    tag += `</ul>`;
-    area.innerHTML += tag;
-}
-function spreadTheaterListToModal(list) {
-    let area = document.getElementById('select_theater');
-    area.innerHTML = '';
-    let tag = '<option value="" selected="selected">극장선택</option>';
-    console.log(list);
-    console.log(typeof list);
-    for (const key in list) {
-        console.log(list[key]);
-        for (const tvo of list[key]) {
-            tag += `<option value="${tvo.tno}">`;
-            tag += `CGV${tvo.tname}`;
-            tag += '</option>';
-        }
-    }
-    area.innerHTML += tag;
-}
-
 document.addEventListener('click', (e) =>{
-    let ul = document.getElementById('myFvoList');
-    let count = ul.childElementCount;
-    if (e.target.classList.contains('addModal')) {
-        const tnoVal = document.getElementById('select_theater').value;
-        const mnoVal = e.target.dataset.mno;
-        if (mnoVal == null || mnoVal == '') {
-            alert('로그인 후 이용해주세요.');
-        } else if (tnoVal == null || tnoVal == '') {
-            alert('존재하지 않는 극장입니다.');
+    if (e.target.id == "favor_th_conf_btn" || e.target.closest('#favor_th_conf_btn') != null) {
+        if (get_mno == "" || parseInt(get_mno) < 1) {
+            if (confirm("로그인 후 이용하실 수 있습니다.\n로그인 화면으로 이동하시겠습니까?")) {
+                location.replace("/member/login");
+            }
+            return;
         }
-        else {
-            const tname = document.getElementById('select_theater');
-            let tnameVal = tname.options[tname.selectedIndex].text;
-            const liTag = document.getElementsByClassName('liTag');
-            let li = '';
-            count = 
-            console.log(ul.childElementCount);
-            
-            let favorData = {
-                mno: mnoVal,
-                tno: tnoVal
-            };
-            addFavorToServer(favorData).then(result => {
-                if (parseInt(result) === 0) {
-                    console.log(parseInt(result));
-                    console.log(result);
-                    if (count > 2) {
-                        alert('최대 등록개수 입니다 삭제 후 다시 등록해주세요!');
-                    } else {
-                        li += `<li class="liTag" data-tno="${tnoVal}">`
-                        li += '<div class="box-polaroid">';
-                        li += '<div class="box-inner">';
-                        li += `<div class="theater">${tnameVal}</div>`;
-                        li += `<button type="button" class="removeModal" data-mno="${mnoVal}" data-tno="${tnoVal}" data-idx="${ul.childElementCount}">CGV${tnameVal} 삭제</button></div></div>`;
-                        li += '</li>'
-                    }
-                    ul.innerHTML += li;
-                    alert("등록되었습니다.");
-                } else if((parseInt(result)) === 1) {
-                    console.log(result);
-                    alert("이미 등록된 극장입니다.");
-                }
-            })
-        }
-    }
-    if (e.target.classList.contains('removeModal')) {
-        const tnoVal = e.target.dataset.tno;
-        const mnoVal = e.target.dataset.mno;
-        if (mnoVal == null || mnoVal == '') {
-            alert('로그인 후 이용해주세요!');
-        } else {
-            let favorData = {
-                mno: mnoVal,
-                tno: tnoVal
-            };
-            removeFavorToServer(favorData).then(result => {
-                if (parseInt(result)) {
-                    alert("삭제되었습니다!");
-                    count--;
-                }
-            })
-        }
-        const ul = document.getElementById('myFvoList');
-        const idx = e.target.dataset.idx;
-        const liTag = document.getElementsByClassName('liTag');
-        const parent = document.getElementById('myFvoList');
-        // liTag[idx].innerHTML = null;
-        parent.removeChild(liTag[idx]);
-    }
-
-    if (e.target.classList.contains('modal_close')) {
-        const modal = document.querySelector('.modal');
-        location.reload();
-    }
-
-    if (e.target.classList.contains('region')) {
-        console.log(e.target.dataset.region);
-        console.log(typeof parseInt(e.target.dataset.region));
-        switch (parseInt(e.target.dataset.region)) {
-            case 0:
-                getTheaterListFromServer(0).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 1:
-                getTheaterListFromServer(1).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 2:
-                getTheaterListFromServer(2).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 3:
-                getTheaterListFromServer(3).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 4:
-                getTheaterListFromServer(4).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 5:
-                getTheaterListFromServer(5).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 6:
-                getTheaterListFromServer(6).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 7:
-                getTheaterListFromServer(7).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-            case 8:
-                getTheaterListFromServer(8).then(result => {
-                    console.log(result);
-                    spreadTheaterList(result);
-                });
-                break;
-        
-            default:
-                break;
-        }
+        document.getElementById('favor_th_conf_modal').classList.remove('d-none');
+    } else if (e.target.id == "favor_th_conf_modal") {
+        document.getElementById('favor_th_conf_modal').classList.add('d-none');
+    } else if (e.target.classList.contains('region-list-item')) {
+        document.querySelector('.region-list-item.item-selected').classList.remove('item-selected');
+        document.querySelector(`.region-list-item[data-region="${e.target.dataset.region}"]`).classList.add('item-selected');
+        getTheaterListFromServer(e.target.dataset.region).then(result => {
+            spreadTheaterList(result);
+        });
+    } else if (e.target.classList.contains('fovor-th-del-btn') || e.target.closest('.favor-th-conf-list-item') != null) {
+        const tno_val = e.target.closest('.favor-th-conf-list-item').dataset.tno;
+        removeFavorToServer({"mno": get_mno, "tno": tno_val}).then(result => {
+            if (parseInt(result) < 1) {
+                alert("오류 발생");
+            } else {
+                getMyTheaterLisFromServer(get_mno).then(result => {
+                    spreadFavorThList(result);
+                })
+            }
+        })
+    } else if (e.target.classList.contains('favor-th-list-item')) {
+        const tno_val = e.target.dataset.tno;
+        location.replace(`/theater/detail?tno=${tno_val}`);
     }
 })
 
-document.addEventListener('change', (e) => {
-    if (e.target.id == "select_region") {
-        if (e.target.classList.contains('thRegion')) {
-            console.log(e.target.value);
-            console.log(typeof parseInt(e.target.dataset.region));
-            switch (parseInt(e.target.value)) {
-                case 0:
-                    getTheaterListFromServer(0).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 1:
-                    getTheaterListFromServer(1).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 2:
-                    getTheaterListFromServer(2).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 3:
-                    getTheaterListFromServer(3).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 4:
-                    getTheaterListFromServer(4).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 5:
-                    getTheaterListFromServer(5).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 6:
-                    getTheaterListFromServer(6).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 7:
-                    getTheaterListFromServer(7).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-                case 8:
-                    getTheaterListFromServer(8).then(result => {
-                        console.log(result);
-                        spreadTheaterListToModal(result);
-                    });
-                    break;
-    
-                default:
-                    break;
-            }
+document.getElementById('favor_th_add_btn').addEventListener('click', () => {
+    const tno_val = document.getElementById('theater_select').value;
+    if (get_mno == "" || parseInt(get_mno) < 1) {
+        if (confirm("로그인 후 이용하실 수 있습니다.\n로그인 화면으로 이동하시겠습니까?")) {
+            location.replace("/member/login");
         }
+        return;
+    } else if (document.querySelectorAll('.favor-th-list-item').length > 2) {
+        alert("최대 3개의 상영관만 등록하실 수 있습니다.");
+        return;
+    } else if (document.querySelector(`.favor-th-list-item[data-tno="${tno_val}"]`) != null) {
+        alert("이미 등록된 상영관입니다.");
+        return;
+    } else {
+        addFavorToServer({"mno": get_mno, "tno": tno_val}).then(result => {
+            if (parseInt(result) < 1) {
+                alert("오류 발생");
+            } else {
+                getMyTheaterLisFromServer(get_mno).then(result => {
+                    spreadFavorThList(result);
+                })
+            }
+        });
     }
-});
+})
+
+function spreadTheaterList(list) {
+    const print_zone = document.getElementById('theater_list_zone');
+    print_zone.innerHTML = "";
+    let str = "";
+    console.log(list);
+    list.forEach(tvo => {
+        str += `<a href="/theater/detail?tno=${tvo.tno}" class="theater-list-item px-2 ${tvo.tno == get_tno ? "item-selected" : ""}">OGV${tvo.tname}</a>`;
+    })
+    print_zone.innerHTML = str;
+}
+
+function spreadTheaterListToModal(list) {
+    const print_area = document.getElementById('theater_select');
+    print_area.innerHTML = "";
+    let str = '<option value="" selected disabled>극장선택</option>';
+    console.log(list);
+    list.forEach(tvo => {
+        str += `<option value="${tvo.tno}">${tvo.tname}</option>`;
+    })
+    print_area.innerHTML = str;
+}
+
+function spreadFavorThList(list) {
+    const print_area = document.getElementById('favor_th_list');
+    const modal_print_area = document.getElementById('favor_th_conf_list');
+    let str1 = "";
+    let str2 = "";
+    list.forEach(fvo => {
+        str1 += `<div data-tno="${fvo.tno}" class="favor-th-list-item">OGV${fvo.tname}</div>`;
+        str2 += `<div data-tno="${fvo.tno}" class="favor-th-conf-list-item position-relative">
+        <div class="px-2">OGV${fvo.tname }</div>
+        <div class="position-absolute fovor-th-del-btn"><i class="bi bi-x"></i></div></div>`;
+    })
+    str1 += '<div id="favor_th_conf_btn"><i class="bi bi-gear-fill"></i></div>';
+    print_area.innerHTML = str1;
+    modal_print_area.innerHTML = str2;
+}
 
 // ---------------------- 상영 시간표 ----------------------
 
@@ -318,8 +178,22 @@ async function get_date_data_from_server(tno, movie_id = "") {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelector(`.region-list-item[data-region="${get_region}"]`).classList.add('item-selected');
+    getTheaterListFromServer(get_region).then(result => {
+        spreadTheaterList(result);
+    });
     calendar_writer();
     theater_select(get_tno);
+
+    document.getElementById('modal_close_btn').addEventListener('click', () => {
+        document.getElementById('favor_th_conf_modal').classList.add('d-none');
+    })
+    document.getElementById('region_select').addEventListener('change', () => {
+        const region_val = document.getElementById('region_select').value;
+        getTheaterListFromServer(region_val).then(result => {
+            spreadTheaterListToModal(result);
+        });
+    });
 })
 
 document.addEventListener('click', (e) => {
@@ -392,7 +266,7 @@ async function refresh_ticket_list() {
     if (book_obj.date_list.length < 1 || book_obj.date_list[book_obj.date_select].tkdto.length < 1) {
         str += '<div class="mt-3 position-absolute top-50 start-50 translate-middle text-center">';
         str += '<p class="mb-1"><i class="bi bi-camera-reels fs-1"></i></p>';
-        str += '<p class="mb-0">조회 가능한 상영 시간이 없습니다.</p>';
+        str += '<p class="mb-0">조회 가능한 상영 시간이 없습니다.</p></div>';
         ticket_zone.innerHTML = str;
         return;
     }
