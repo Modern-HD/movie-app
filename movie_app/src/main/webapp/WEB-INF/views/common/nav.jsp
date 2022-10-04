@@ -30,14 +30,7 @@
             <div class="nav-item-zone fs-5">
                 <a class="nav-item" href="/movie/info">영화</a>
                 
-                <c:choose>
-				<c:when test="${ses.id eq null || ses.id eq '' }">
-					<a class="nav-item" href="/theater/detail?tno=1&mno=0">상영관</a>
-				</c:when>
-				<c:otherwise>
-					<a class="nav-item" href="/theater/detail?tno=1&mno=${ses.mno }">상영관</a>
-				</c:otherwise>
-			</c:choose>
+				<a class="nav-item" href="/theater/detail?tno=1">상영관</a>
                 
                 <a class="nav-item" href="/book/">예매</a>
             </div>
